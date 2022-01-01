@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="branch_view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.branch.extened</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="branch_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!--&lt;!&ndash;        <record id="view_account_invoice_branch_form" model="ir.ui.view">&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="name">account.invoice.branch.extened</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="model">account.invoice</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="inherit_id" ref="account.invoice_form"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="arch" type="xml">&ndash;&gt;-->
+        <!--&lt;!&ndash;                <field name="date_invoice" position="after">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <field name="branch_id"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </field>&ndash;&gt;-->
+        <!--&lt;!&ndash;        </record>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;        <record id="view_account_invoice_supplier_branch_form" model="ir.ui.view">&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="name">account.invoice.supplier.branch.extened</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="model">account.invoice</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="inherit_id" ref="account.invoice_supplier_form"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <field name="arch" type="xml">&ndash;&gt;-->
+        <!--&lt;!&ndash;                <field name="date_invoice" position="after">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <field name="branch_id"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </field>&ndash;&gt;-->
+        <!--&lt;!&ndash;        </record>&ndash;&gt;-->
+
+        <record id="branch_move_extended" model="ir.ui.view">
+            <field name="name">Branch Move</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                    <field name="branch_id"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_account_move_line_form" model="ir.ui.view">
+            <field name="name">account.move.line.extened</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_move_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.tree.extened</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="branch_id"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_payment_form_with_branch" model="ir.ui.view">
+            <field name="name">account.payment.branch.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="branch_id"
+                           options="{'no_create': True}"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="account_payment_tree_with_branch" model="ir.ui.view">
+            <field name="name">account.payment.branch.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="branch_id"/>
+
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="branch_view_account_journal_search">
+            <field name="name">account.journal.filter</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+        <record id="view_hr_employee_form_extended" model="ir.ui.view">
+            <field name="name">hr.employee.form.extended</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="branch_view_employee_tree">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="branch_hr_employee_search_inherit">
+            <field name="name">hr.employee.filter</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="branch_id" icon="fa-users" enable_counters="1"/>
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

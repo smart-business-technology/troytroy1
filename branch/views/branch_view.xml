@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_branch_form" model="ir.ui.view">
+            <field name="name">res.branch.form</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch Information" version="7.0">
+                    <sheet>
+                        <group cols="4">
+                            <group>
+                                <field name="name" />
+<!--                                <field name="company_id" />-->
+                                <field name="telephone_no" />
+
+
+                            </group>
+                            <group>
+                                <field name="address" />
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_res_branch_tree" model="ir.ui.view">
+            <field name="name">res.branch.tree</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <tree string="Branch Information">
+                    <field name="name" />
+<!--                    <field name="company_id" />-->
+                </tree>
+            </field>
+        </record>
+        <record id="action_res_branch_form" model="ir.actions.act_window">
+            <field name="name">Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.branch</field>
+            <field name="view_mode">tree,form</field>
+
+        </record>
+
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_action_res_branch" parent="base.menu_users" action="action_res_branch_form" groups="branch.group_branch_user_manager"/>
+
+
+    </data>
+</odoo>
