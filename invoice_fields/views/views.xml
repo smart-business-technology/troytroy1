@@ -7,9 +7,24 @@
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='ref']" position="after">
+                    <field name="anfas_cost" />
                     <field name="driver_name" />
                     <field name="carpenter_name" />
 
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="total_real_cost"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="view_account_move_line_form1" model="ir.ui.view">
+            <field name="name">account.move.line.extened1</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="before">
+                    <field name="real_price_unit"/>
                 </xpath>
             </field>
         </record>
