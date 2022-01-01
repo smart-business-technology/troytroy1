@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="sales_diff_report1">
+
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="page" dir="rtl">
+
+                        <!--                        <div class="col-24">-->
+                        <table class="table table-bordered w-100"
+                               style=" width: 100%; text-align:center; direction: rtl; border:2px solid black; color:black; font-size:14px;">
+
+                            <thead style="border:2px solid black;">
+                                <tr style="border:2px solid black;">
+                                    <th class="tg-0pky" style="border:2px solid black;">المنتج الذي تم بيعة</th>
+                                    <th class="tg-0pky" style="border:2px solid black;">السعر الاساسي</th>
+                                    <th class="tg-0pky" style="border:2px solid black;">سعر المنتج في الفرع</th>
+                                    <th class="tg-0pky" style="border:2px solid black;">فرق السعر</th>
+
+                                </tr>
+                            </thead>
+                            <tbody style="border:2px solid black;">
+
+                                <tr t-foreach="lines" t-as="line" style="border:2px solid black;">
+
+
+                                    <td class="tg-0pky" style="border:2px solid black;">
+                                        <t t-esc="line['product']"/>
+                                    </td>
+                                    <td class="tg-0pky" style="border:2px solid black;">
+                                        <t t-esc="line['baghdad_price']"/>
+                                    </td>
+                                    <td class="tg-0pky" style="border:2px solid black;">
+                                        <t t-esc="line['basra_price']"/>
+                                    </td>
+                                    <td class="tg-0pky" style="border:2px solid black;">
+                                        <t t-esc="line['diff']"/>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                        <!--                        </div>-->
+
+
+                    </div>
+
+
+                </t>
+
+
+            </t>
+
+        </template>
+        <record id="payroll_sark_report_format" model="report.paperformat">
+            <field name="name">Custom format</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">340</field>
+            <field name="page_width">220</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">100</field>
+
+        </record>
+
+        <report
+                id="sales_diff_report"
+                string='sale diff report'
+                model="sales.diff.report.wiz"
+                report_type="qweb-pdf"
+                file="invoice_fields.sales_diff_report1"
+                name="invoice_fields.sales_diff_report1"
+                paperformat="payroll_sark_report_format"
+        >
+
+        </report>
+    </data>
+</odoo>
