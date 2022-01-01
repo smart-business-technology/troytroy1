@@ -33,7 +33,79 @@ class SaleOrderLine(models.Model):
 class PurchaseOrderInherit(models.Model):
     _inherit = "purchase.order"
     anfas_cost = fields.Float(string="التكلفه", required=False,)
+    total_real_cost = fields.Float(string="Total Real price", required=False, compute="_compute_total_real_cost")
 
+    def _prepare_account_move_line(self, move=False):
+        print("ahmed")
+        self.ensure_one()
+        res = {
+            'display_type': self.display_type,
+            'sequence': self.sequence,
+            'name': '%s: %s' % (self.order_id.name, self.name),
+            'product_id': self.product_id.id,
+            'product_uom_id': self.product_uom.id,
+            'quantity': self.qty_to_invoice,
+            'price_unit': self.price_unit,
+            'real_price_unit': self.real_price_unit,
+            'tax_ids': [(6, 0, self.taxes_id.ids)],
+            'analytic_account_id': self.account_analytic_id.id,
+            'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
+            'purchase_line_id': self.id,
+        }
+        if not move:
+            return res
+
+        if self.currency_id == move.company_id.currency_id:
+            currency = False
+        else:
+
+            currency = move.currency_id
+
+        res.update({
+            'move_id': move.id,
+            'currency_id': currency and currency.id or False,
+            'date_maturity': move.invoice_date_due,
+            'partner_id': move.partner_id.id,
+        })
+        return res
+
+    def _compute_total_real_cost(self):
+        for rec in self :
+            sum = 0
+            for i in rec.order_line :
+                sum+=i.real_price_unit
+            rec.total_real_cost = sum
+
+
+    def _prepare_invoice(self):
+        """Prepare the dict of values to create the new invoice for a purchase order.
+        """
+        self.ensure_one()
+        move_type = self._context.get('default_move_type', 'in_invoice')
+        journal = self.env['account.move'].with_context(default_move_type=move_type)._get_default_journal()
+        if not journal:
+            raise UserError(_('Please define an accounting purchase journal for the company %s (%s).') % (self.company_id.name, self.company_id.id))
+
+        partner_invoice_id = self.partner_id.address_get(['invoice'])['invoice']
+        invoice_vals = {
+            'ref': self.partner_ref or '',
+            'move_type': move_type,
+            'narration': self.notes,
+            'currency_id': self.currency_id.id,
+            'invoice_user_id': self.user_id and self.user_id.id,
+            'partner_id': partner_invoice_id,
+            'fiscal_position_id': (self.fiscal_position_id or self.fiscal_position_id.get_fiscal_position(partner_invoice_id)).id,
+            'payment_reference': self.partner_ref or '',
+            'partner_bank_id': self.partner_id.bank_ids[:1].id,
+            'invoice_origin': self.name,
+            'anfas_cost': self.anfas_cost,
+            'total_real_cost': self.total_real_cost,
+
+            'invoice_payment_term_id': self.payment_term_id.id,
+            'invoice_line_ids': [],
+            'company_id': self.company_id.id,
+        }
+        return invoice_vals
 
     @api.onchange('anfas_cost')
     def onchange_anfas_cost(self):
@@ -43,7 +115,7 @@ class PurchaseOrderInherit(models.Model):
                 if cost1 != 0 :
                     rec.price_unit = rec.price_unit*cost1 +rec.price_unit
                 # else:
-                #     rec.price_unit = rec.product_id.standard_price
+                rec.real_price_unit = rec.product_id.standard_price
 
 class SaleOrderLine(models.Model):
     _inherit = 'purchase.order.line'
@@ -55,11 +127,15 @@ class SaleOrderLine(models.Model):
         self.price_unit = self.product_id.lst_price
         self.real_price_unit = self.product_id.standard_price
 
-# class AccountMoveInherit(models.Model):
-#
-#     _inherit = 'account.move'
-#
-#     driver_name = fields.Char(string="اسم السائق", required=False, )
-#     car_number = fields.Integer(string="رقم السياره", required=False, )
-#     customer_phone = fields.Integer(string="رقم هاتف الزبون", required=False, )
-#     customer_adress = fields.Char(string="عنوان الزبون", required=False, )
+
+
+class AccountMoveInherit(models.Model):
+
+    _inherit = 'account.move'
+
+    driver_name = fields.Char(string="اسم السائق", required=False, )
+    car_number = fields.Integer(string="رقم السياره", required=False, )
+    customer_phone = fields.Integer(string="رقم هاتف الزبون", required=False, )
+    customer_adress = fields.Char(string="عنوان الزبون", required=False, )
+
+

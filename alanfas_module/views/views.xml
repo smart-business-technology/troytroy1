@@ -12,9 +12,7 @@
                     <field name="anfas_cost"/>
                     <!--                    <field name="omola_cost"/>-->
                 </xpath>
-<!--                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="before">-->
-<!--                    <field name="real_price_unit"/>-->
-<!--                </xpath>-->
+
             </field>
         </record>
         <record id="view_purchase_order_form_extended" model="ir.ui.view">
@@ -27,7 +25,13 @@
                 </xpath>
                 <xpath expr="//field[@name='order_line']//field[@name='price_unit']" position="before">
                     <field name="real_price_unit"/>
+
                 </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="total_real_cost"/>
+                </xpath>
+
+
             </field>
         </record>
 
