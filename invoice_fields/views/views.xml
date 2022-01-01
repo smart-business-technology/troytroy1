@@ -8,12 +8,32 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='ref']" position="after">
                     <field name="anfas_cost" />
-                    <field name="driver_name" />
-                    <field name="carpenter_name" />
+                    <field name="driver_name" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}" />
+                    <field name="carpenter_name" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}" />
+                     <field name="car_number" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <field name="customer_phone" widget="phone" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <field name="customer_adress" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+
 
                 </xpath>
+<!--                <xpath expr="//field[@name='journal_id']" position="before">-->
+<!--&lt;!&ndash;                    <field name="car_number" attrs="{'invisible':[('move_type', 'not in', ('out_invoice', 'out_refund'))]}"/>&ndash;&gt;-->
+<!--                   -->
+
+<!--                </xpath>-->
                 <xpath expr="//field[@name='amount_total']" position="after">
                     <field name="total_real_cost"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="تاريخ التسليم">
+                        <field name="delevery_date" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="delevery_date"/>
+                                    <field name="product_id_1"/>
+                                    <field name="qty"/>
+                                </tree>
+                            </field>
+                    </page>
                 </xpath>
 
             </field>
