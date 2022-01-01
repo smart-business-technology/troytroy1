@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        _
+        <record id="sale_order_form_inherit1" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit1</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="anfas_cost"/>
+                    <!--                    <field name="omola_cost"/>-->
+                </xpath>
+<!--                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="before">-->
+<!--                    <field name="real_price_unit"/>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+        <record id="view_purchase_order_form_extended" model="ir.ui.view">
+            <field name="name">purchase.order.form.extended</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="anfas_cost"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//field[@name='price_unit']" position="before">
+                    <field name="real_price_unit"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
