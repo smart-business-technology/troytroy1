@@ -6,7 +6,7 @@
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <t t-set="address">
-                    <div style="float:left ;padding-left:5px">
+                    <div style="padding-left:5px">
                     <address  t-field="o.partner_id"
                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                     </div>
