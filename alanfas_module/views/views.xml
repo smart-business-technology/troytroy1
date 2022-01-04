@@ -11,7 +11,7 @@
                     <field name="anfas_cost"/>
                     <field name="car_number"/>
                     <field name="driver_name"/>
-                    <field name="customer_phone" widget="phone"/>
+                    <field name="customer_phone"/>
                     <field name="customer_adress"/>
                     <!--                    <field name="omola_cost"/>-->
                 </xpath>
