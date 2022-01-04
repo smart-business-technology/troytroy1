@@ -19,7 +19,7 @@ class SaleOrderInherit(models.Model):
     driver_name = fields.Char(string="اسم السائق", required=False, )
     car_number = fields.Integer(string="رقم السياره", required=False, )
     customer_phone = fields.Integer(string="رقم هاتف الزبون", required=False, )
-    customer_adress = fields.Integer(string="عنوان الزبون", required=False, )
+    customer_adress = fields.Char(string="عنوان الزبون", required=False, )
 
     def _prepare_invoice(self):
         """
