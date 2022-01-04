@@ -90,7 +90,7 @@ class PurchaseOrderInherit(models.Model):
         for rec in self :
             sum = 0
             for i in rec.order_line :
-                sum+=i.real_price_unit
+                sum+=(i.real_price_unit*i.product_qty)
             rec.total_real_cost = sum
 
 
