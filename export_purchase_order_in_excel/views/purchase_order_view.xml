@@ -7,4 +7,57 @@
         <field name="state">code</field>
         <field name="code">action = records.export_purchase_order_in_excel()</field>
     </record>
+    <record id="expense_expense_form" model="ir.ui.view">
+        <field name="name">expense.expense.form</field>
+        <field name="model">expense.expense</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="amount"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="expense_expense_tree" model="ir.ui.view">
+        <field name="name">expense.expense.tree</field>
+        <field name="model">expense.expense</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+    <record id="form_num_po_inherit_id1" model="ir.ui.view">
+           <field name="name">purchase.oder.inherit.num1</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//notebook" position="inside">
+                    <page  string="Expenses">
+
+                        <group>
+                            <field name="expense_expense_ids"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="account_credit_id"/>
+                                <field name="account_debit_id"/>
+                            </group>
+                            <group>
+                                <field name="journal_entry_id"/>
+                                <button name="Create_Journal" type="object" string="Create Journal Entry"/>
+                            </group>
+                        </group>
+                    </page>
+               </xpath>
+
+           </field>
+       </record>
+
 </odoo>

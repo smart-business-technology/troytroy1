@@ -1,14 +1,59 @@
 # -*- coding: utf-8 -*-
 import base64
 from io import BytesIO
-from odoo import fields, models
+from odoo import fields, models,_
 from odoo.tools.misc import xlwt
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.tools.misc import formatLang
+from odoo.exceptions import ValidationError
 
+
+class Expense(models.Model):
+    _name = 'expense.expense'
+    _rec_name = 'name'
+    _description = 'New Description'
+    purchase_id = fields.Many2one(comodel_name="purchase.order", string="", required=False, )
+    name = fields.Char("Name")
+    amount = fields.Float(string="Amount",  required=False, )
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
+    account_debit_id = fields.Many2one('account.account', string="Account Debit")
+    account_credit_id = fields.Many2one('account.account', string="Account Credit")
+    journal_entry_id = fields.Many2one('account.move',string="Journal Entry",readonly="1", copy=False)
+    journal_id = fields.Many2one('account.journal', string='Journal', required=True,domain=[('type', 'in', ('bank', 'cash'))])
+    def Create_Journal(self):
+        sum=0
+        for rec in self.expense_expense_ids:
+            sum+=rec.amount
+        if self.expense_expense_ids and self.account_credit_id and self.account_debit_id and self.journal_id :
+            new_account_move = self.env['account.move'].create({
+                'journal_id': self.journal_id.id,
+                'date': fields.Datetime.now(),
+                'move_type': 'entry',
+                'line_ids': [
+                    (0, 0, {
+                        # 'partner_id': self.partner_id.id,
+                        'account_id': self.account_debit_id.id,
+                        'debit': sum,
+                        'credit': 0,
+                        'date': fields.Datetime.now(),
+                    }),
+                    (0, 0, {
+                        # 'partner_id': self.partner_id.id if self.partner_id else False,
+                        'account_id': self.account_credit_id.id,
+                        'debit': 0,
+                        'credit': sum,
+                        'date': fields.Datetime.now(),
+                    })
+                ],
+            })
+            print(new_account_move)
+            self.journal_entry_id = new_account_move.id
+        else:
+            raise ValidationError(_("Please fill  the records"))
+
+    expense_expense_ids = fields.One2many(comodel_name="expense.expense", inverse_name="purchase_id", string="", required=False, )
 
     def export_purchase_order_in_excel(self):
         active_ids = self.env.context.get('active_ids')

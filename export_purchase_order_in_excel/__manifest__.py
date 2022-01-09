@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Export Purchase Order in Excel',
+    'name': 'Export Purchase Order in Excel1',
     'summary': "Export Purchase Order in Excel",
     'description': """ Export Purchase Order in Excel """,
 
