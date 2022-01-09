@@ -13,6 +13,7 @@
     'depends': ['purchase'],
 
     'data': [
+        'security/ir.model.access.csv',
         'views/purchase_order_view.xml',
     ],
     "demo": [],
