@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_award_tree_view" model="ir.ui.view">
+            <field name="name">employee.award.tree.view</field>
+            <field name="model">employee.punish</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Award">
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="date" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_award_form_view" model="ir.ui.view">
+            <field name="name">employee.award.form.view</field>
+            <field name="model">employee.punish</field>
+            <field name="arch" type="xml">
+                <form string="Employee punish">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" />
+                                <field name="employee_id" required="1" />
+                                <field name="description" />
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="date" />
+                                <field name="ttype" />
+                                <label for="amount" />
+                                <div>
+                                    <field name="amount" class="oe_inline"/>
+                                    <field name="currency_id" class="oe_inline ml8" groups="base.group_multi_currency"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_punish" model="ir.actions.act_window">
+            <field name="name">Employee punish</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.punish</field>
+
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="menu_hr_award" action="action_hr_punish"
+            parent="hr.menu_human_resources_configuration" groups="base.group_user"/>
+
+	</data>
+</odoo>
+

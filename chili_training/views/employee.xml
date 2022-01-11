@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherited_hr_employee_form_view_added_field"
+                model="ir.ui.view">
+            <field name="name">inherited.hr.employee.form.view.added.field</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page name="award_training" string=" التدريب و العقوبات والمكافات">
+                         <field name="latee" invisible="1"/>
+                         <field name="early_leave" />
+                         <field name="days_latee"/>
+                         <group string="المكافات">
+                            <field name="reward_ids" nolabel="1">
+                                <tree string="Employee Award">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="ttype"/>
+                                    <field name="amount"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form string="Employee Award">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name" required="1"/>
+                                                <field name="date"/>
+                                                <field name="description"/>
+                                                <field name="company_id" groups="base.group_multi_company"/>
+                                            </group>
+                                            <group>
+                                                <field name="ttype"/>
+                                                <field name="amount"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="العقوبات">
+                            <field name="punish_ids" nolabel="1">
+                                <tree string="Employee Award">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="ttype"/>
+                                    <field name="amount"/>
+                                </tree>
+                                <form string="Employee Award">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name" required="1"/>
+                                                <field name="date"/>
+                                                <field name="description"/>
+                                                <field name="company_id" groups="base.group_multi_company"/>
+                                            </group>
+                                            <group>
+                                                <field name="ttype"/>
+                                                <field name="amount"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                        <group string="Training">
+                            <field name="training_ids" nolabel="1">
+                                <tree string="Employee Training">
+                                    <field name="name"/>
+                                    <field name="from_date"/>
+                                    <field name="to_date"/>
+                                    <field name="course_subject"/>
+                                    <field name="hr_training_id"/>
+                                    <field name="company_id" groups="base.group_multi_company"/>
+                                </tree>
+                                <form string="Employee Training">
+                                    <header>
+                                        <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                                    </header>
+                                    <sheet>
+                                        <div class="oe_title">
+                                            <h2>
+                                                <field name="name" placeholder="Name" required="1"/>
+                                            </h2>
+                                        </div>
+                                        <group>
+                                            <group>
+                                                <field name="from_date"/>
+                                                <field name="hr_training_id" required="1"/>
+                                                <field name="result"/>
+                                                <field name="company_id" groups="base.group_multi_company"/>
+                                            </group>
+                                            <group>
+                                                <field name="to_date"/>
+                                                <field name="course_subject"/>
+                                                <field name="description"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="الذمم">
+                        <field name="zmm_ids"></field>
+                    </page>
+
+
+                </notebook>
+                <xpath expr="//field[@name='study_school']" position="after">
+
+                    <field name="pre_job"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

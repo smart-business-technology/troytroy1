@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_attendance_tree_biometric1" model="ir.ui.view">
+            <field name="name">hr.attendance.tree.biometric1</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+
+
+
+                <xpath expr="//field[@name='check_in']" position="after">
+                    <field name="checkin_date" />
+                </xpath>
+                 <xpath expr="//field[@name='check_out']" position="after">
+                                    <field name="checkout_date" />
+                                </xpath>
+
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="attendance_report_form">
+            <field name="name">attendance.report.form</field>
+            <field name="model">attendance.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                        <field name="employee_id" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" class="highlight"/>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="attendance_report_action_window">
+            <field name="name">Attendance Report</field>
+            <field name="res_model">attendance.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+<!--            <field name="view_type">form</field>-->
+        </record>
+
+        <menuitem id="menu_hr_attendance_manage_report" name="Attendance Report"
+                  parent="hr_attendance.menu_hr_attendance_manage_attendances" action="attendance_report_action_window"
+                  sequence="100"/>
+
+    </data>
+</odoo>

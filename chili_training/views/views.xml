@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="zmm_form" model="ir.ui.view">
+            <field name="name">Zmm</field>
+            <field name="model">hr.zmm</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="zmm_tree" model="ir.ui.view">
+            <field name="name">zmm</field>
+            <field name="model">hr.zmm</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="note"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="zmm_action" model="ir.actions.act_window">
+            <field name="name">الذمم</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.zmm</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="hr_training_program_tree_view" model="ir.ui.view">
+            <field name="name">hr.training.tree.view</field>
+            <field name="model">hr.training</field>
+            <field name="arch" type="xml">
+                <tree string="HR Training">
+                    <field name="name" />
+                    <field name="from_date" />
+                    <field name="to_date" />
+                    <field name="course_subject"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_training_program_form_view" model="ir.ui.view">
+            <field name="name">hr.training.form.view</field>
+            <field name="model">hr.training</field>
+            <field name="arch" type="xml">
+                <form string="HR Training">
+                    <header>
+                        <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                             <h2>
+                                <field name="name" placeholder="Name" required="1" />
+                             </h2>
+                        </div>
+                        <group colspan="2">
+                            <group>
+                                <field name="from_date" />
+                                <field name="course_subject"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group>
+                                <field name="to_date" />
+                                <field name="description" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Employees">
+                                <field name="employee_ids" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_training"
+            model="ir.actions.act_window">
+            <field name="name">HR Training</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.training</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="menu_hr_training_" name="HR Training"
+            action="action_hr_training"
+            parent="hr.menu_human_resources_configuration" groups="base.group_user"/>
+
+        <!-- Employee Employee Training Program View,Action and Menu -->
+
+        <record id="hr_employee_training_program_tree_view" model="ir.ui.view">
+            <field name="name">employee.training.tree.view</field>
+            <field name="model">employee.training</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Training">
+                    <field name="name" />
+                    <field name="employee_id" />
+                    <field name="from_date" />
+                    <field name="to_date" />
+                    <field name="course_subject"/>
+                    <field name="hr_training_id" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_training_form_view" model="ir.ui.view">
+            <field name="name">employee.training.form.view</field>
+            <field name="model">employee.training</field>
+            <field name="arch" type="xml">
+                <form string="Employee Training">
+                    <header>
+                        <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                             <h2>
+                                <field name="name" placeholder="Name" required="1" />
+                             </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="from_date" />
+                                <field name="employee_id"/>
+                                <field name="hr_training_id" required="1"/>
+                                <field name="result"/>
+
+                            </group>
+                            <group>
+                                <field name="to_date" />
+                                <field name="course_subject"/>
+                                <field name="description" />
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_employee_training"
+            model="ir.actions.act_window">
+            <field name="name">Employee Training</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.training</field>
+            <field name="view_mode">search,tree,form</field>
+        </record>
+
+        <menuitem id="menu_employee_training_" name="Employee Training"
+            action="action_employee_training"
+            parent="hr.menu_human_resources_configuration"/>
+        <menuitem id="zmm_menu" name="الذمم"
+            action="zmm_action"
+            parent="hr.menu_human_resources_configuration"/>
+	</data>
+</odoo>
+
