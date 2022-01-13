@@ -7,3 +7,4 @@ access_hr_employee_reward,hr_employee_reward,model_employee_reward,base.group_us
 access_hr_employee_reward_type,hr_employee_reward_type,model_employee_reward_type,base.group_user,1,1,1,1
 access_hr_employee_reward1_type,hr_employee_reward_type1,model_employee_reward_type,base.group_user,1,1,1,1
 access_hr_zmm,hr.zmm,model_hr_zmm,base.group_user,1,1,1,1
+access_hr_transport,hr.transport,model_hr_transport,base.group_user,1,1,1,1

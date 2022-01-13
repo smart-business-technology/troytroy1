@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="hr_transport_form" model="ir.ui.view">
+            <field name="name">hr.transport.tree</field>
+            <field name="model">hr.transport</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
         <record id="zmm_form" model="ir.ui.view">
             <field name="name">Zmm</field>
             <field name="model">hr.zmm</field>

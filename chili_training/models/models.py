@@ -2,6 +2,14 @@
 
 from odoo import models, fields, api
 
+class Transport(models.Model):
+    _name = "hr.transport"
+    _description = "transport"
+
+    name = fields.Char(string="المسمي الوظيفي")
+    date = fields.Date(string="Date")
+    employee_id = fields.Many2one("hr.employee", string="Employee")
+
 
 class Training(models.Model):
     _name = "hr.training"
@@ -54,6 +62,7 @@ class HREmployee(models.Model):
     reward_ids = fields.One2many("employee.reward", "employee_id", string="العقويات")
     training_ids = fields.One2many("employee.training", "employee_id", string="Training")
     zmm_ids = fields.One2many("hr.zmm", "employee_id", string="Training")
+    transport_ids = fields.One2many("hr.transport", "employee_id", string="التنقلات")
 
     latee = fields.Float(string="التاخير",  required=False, )
     early_leave = fields.Float(string="الرحيل المبكر ",  required=False, )
