@@ -13,7 +13,7 @@
                     <div >
                         <span t-if="o.move_type == 'out_invoice' ">
                          اسم السائق : <t style="padding-left:500px ; margin:40px" t-esc="o.driver_name"/><br/>
-                         اسم النجار : <t t-esc="o.carpenter_name"/><br/>
+                         اسم النجار : <t t-esc="o.carpenter_name.name"/><br/>
                          رقم السياره : <t t-esc="o.car_number"/><br/>
                          رقم هاتف الزبون : <t t-esc="o.customer_phone"/><br/>
                          عنوان الزبون : <t t-esc="o.customer_adress"/><br/>
