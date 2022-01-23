@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="iq_view_product_template_search_view_inherit" model="ir.ui.view">
+        <field name="name">iq_view.product.template.search.view.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="after">
+                <searchpanel class='iq_product_root'>
+               
+                    <field name="categ_id"  icon="fa-tags"/>
+                </searchpanel>
+            </xpath>
+        </field>
+    </record>
+    
+    
+    
+    
+    
+</odoo>

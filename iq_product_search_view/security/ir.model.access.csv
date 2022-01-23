@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iq_product_search_view_iq_product_search_view,iq_product_search_view.iq_product_search_view,model_iq_product_search_view_iq_product_search_view,base.group_user,1,1,1,1

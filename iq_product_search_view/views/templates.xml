@@ -1,0 +1,8 @@
+<odoo>
+<template id="iq_assets_backend" name="iq_control_panel assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/iq_product_search_view/static/src/scss/search_panel.scss"/>
+            </xpath>
+            </template>
+            
+</odoo>
